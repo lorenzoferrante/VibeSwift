@@ -20,8 +20,6 @@ jobs:
     env:
       PROJECT_PATH: VibeSwift.xcodeproj
       SCHEME: VibeSwift
-      ARCHIVE_PATH: ${{ runner.temp }}/VibeSwift.xcarchive
-      EXPORT_PATH: ${{ runner.temp }}/export
 
     steps:
       - name: Checkout
@@ -34,6 +32,11 @@ jobs:
 
       - name: Show Xcode version
         run: xcodebuild -version
+
+      - name: Define archive paths
+        run: |
+          echo "ARCHIVE_PATH=$RUNNER_TEMP/VibeSwift.xcarchive" >> "$GITHUB_ENV"
+          echo "EXPORT_PATH=$RUNNER_TEMP/export" >> "$GITHUB_ENV"
 
       - name: Prepare App Store Connect API key
         env:
