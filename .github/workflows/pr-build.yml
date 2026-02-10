@@ -33,6 +33,10 @@ jobs:
             -scheme "VibeSwift" \
             -resolvePackageDependencies
 
+      - name: Run SwiftExecEngine tests
+        run: |
+          swift test --package-path "SwiftExecEngine" --filter XcodeProjectFileGeneratorTests
+
       - name: Build for iOS Simulator (no signing)
         run: |
           set -eo pipefail

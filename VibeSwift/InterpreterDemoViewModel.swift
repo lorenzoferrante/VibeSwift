@@ -21,6 +21,8 @@ final class InterpreterDemoViewModel: ObservableObject {
     @Published var buildManifestText: String = ""
     @Published var buildAppName: String = "GeneratedApp"
     @Published var buildBundleIdentifier: String = "com.example.GeneratedApp"
+    @Published var buildMinimumIOSVersion: String = "17.0"
+    @Published var buildDevelopmentTeam: String = "YOUR_TEAM_ID"
 
     @Published var allowSwiftUIBridge: Bool = false
     @Published var renderedView: AnyView?
@@ -83,6 +85,8 @@ final class InterpreterDemoViewModel: ObservableObject {
             source: source,
             appName: buildAppName,
             bundleIdentifier: buildBundleIdentifier,
+            minimumIOSVersion: buildMinimumIOSVersion,
+            developmentTeam: buildDevelopmentTeam,
             capabilities: capabilities,
             includeSwiftUI: allowSwiftUIBridge
         )

@@ -74,6 +74,12 @@ return upper
                         TextField("Bundle Identifier", text: $viewModel.buildBundleIdentifier)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
+                        TextField("iOS Deployment Target", text: $viewModel.buildMinimumIOSVersion)
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled()
+                        TextField("Development Team (or YOUR_TEAM_ID)", text: $viewModel.buildDevelopmentTeam)
+                            .textInputAutocapitalization(.characters)
+                            .autocorrectionDisabled()
                     }
                 }
             }
