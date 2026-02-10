@@ -49,7 +49,7 @@ jobs:
           test -n "$ASC_ISSUER_ID"
           test -n "$ASC_PRIVATE_KEY"
 
-          ASC_DIR="$RUNNER_TEMP/asc"
+          ASC_DIR="$HOME/.private_keys"
           mkdir -p "$ASC_DIR"
           ASC_KEY_PATH="$ASC_DIR/AuthKey_${ASC_KEY_ID}.p8"
 
