@@ -1,0 +1,14 @@
+{
+  "fill" : {
+    "solid" : "srgb:0.96377,0.40248,1.00000,1.00000"
+  },
+  "groups" : [
+
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}

@@ -26,6 +26,8 @@
 		5020F7BB2F3BBC1C00F2814C /* CodeEditorView in Frameworks */ = {isa = PBXBuildFile; productRef = 5020F7BA2F3BBC1C00F2814C /* CodeEditorView */; };
 		5020F7BD2F3BBC1C00F2814C /* LanguageSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 5020F7BC2F3BBC1C00F2814C /* LanguageSupport */; };
 		5020F7C12F3C000000F2814C /* SwiftExecHost in Frameworks */ = {isa = PBXBuildFile; productRef = 5020F7C02F3C000000F2814C /* SwiftExecHost */; };
+		5020F8042F3BE42B00F2814C /* SwiftExecDiagnostics in Frameworks */ = {isa = PBXBuildFile; productRef = 5020F8032F3BE42B00F2814C /* SwiftExecDiagnostics */; };
+		5020F80A2F3BE8F500F2814C /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 5020F8092F3BE8F500F2814C /* AppIcon.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,7 @@
 		5020F7B32F3BBB7700F2814C /* Bitrig_01.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Bitrig_01.md; sourceTree = "<group>"; };
 		5020F7B52F3BBB8900F2814C /* Bitrig_02.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Bitrig_02.md; sourceTree = "<group>"; };
 		5020F7B72F3BBBA900F2814C /* Bitrig_03.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Bitrig_03.md; sourceTree = "<group>"; };
+		5020F8092F3BE8F500F2814C /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -49,6 +52,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5020F7942F3BBB6400F2814C /* SwiftDiagnostics in Frameworks */,
+				5020F8042F3BE42B00F2814C /* SwiftExecDiagnostics in Frameworks */,
 				5020F7A62F3BBB6400F2814C /* SwiftSyntaxBuilder in Frameworks */,
 				5020F7962F3BBB6400F2814C /* SwiftIDEUtils in Frameworks */,
 				5020F7982F3BBB6400F2814C /* SwiftIfConfig in Frameworks */,
@@ -73,10 +77,12 @@
 		5020F7772F3BBA7D00F2814C = {
 			isa = PBXGroup;
 			children = (
+				5020F8092F3BE8F500F2814C /* AppIcon.icon */,
 				5020F7B72F3BBBA900F2814C /* Bitrig_03.md */,
 				5020F7B52F3BBB8900F2814C /* Bitrig_02.md */,
 				5020F7B32F3BBB7700F2814C /* Bitrig_01.md */,
 				5020F7822F3BBA7D00F2814C /* VibeSwift */,
+				5020F8022F3BE42B00F2814C /* Frameworks */,
 				5020F7812F3BBA7D00F2814C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,6 +93,13 @@
 				5020F7802F3BBA7D00F2814C /* VibeSwift.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5020F8022F3BE42B00F2814C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +138,7 @@
 				5020F7BA2F3BBC1C00F2814C /* CodeEditorView */,
 				5020F7BC2F3BBC1C00F2814C /* LanguageSupport */,
 				5020F7C02F3C000000F2814C /* SwiftExecHost */,
+				5020F8032F3BE42B00F2814C /* SwiftExecDiagnostics */,
 			);
 			productName = VibeSwift;
 			productReference = 5020F7802F3BBA7D00F2814C /* VibeSwift.app */;
@@ -175,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5020F7B42F3BBB7700F2814C /* Bitrig_01.md in Resources */,
+				5020F80A2F3BE8F500F2814C /* AppIcon.icon in Resources */,
 				5020F7B62F3BBB8900F2814C /* Bitrig_02.md in Resources */,
 				5020F7B82F3BBBA900F2814C /* Bitrig_03.md in Resources */,
 			);
@@ -319,6 +334,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XYA85FESD6;
@@ -329,6 +345,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -337,6 +354,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lorenzoferrante.VibeSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -351,6 +372,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XYA85FESD6;
@@ -361,6 +383,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -369,6 +392,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lorenzoferrante.VibeSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -507,6 +534,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5020F7BF2F3C000000F2814C /* XCLocalSwiftPackageReference "SwiftExecEngine" */;
 			productName = SwiftExecHost;
+		};
+		5020F8032F3BE42B00F2814C /* SwiftExecDiagnostics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5020F7BF2F3C000000F2814C /* XCLocalSwiftPackageReference "SwiftExecEngine" */;
+			productName = SwiftExecDiagnostics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -67,7 +67,8 @@ let package = Package(
             name: "SwiftExecBridgeRuntime",
             dependencies: [
                 "SwiftExecSemantic",
-                "SwiftExecSecurity"
+                "SwiftExecSecurity",
+                "SwiftExecDiagnostics"
             ]
         ),
         .target(
