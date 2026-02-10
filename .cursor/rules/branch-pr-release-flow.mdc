@@ -1,0 +1,20 @@
+---
+description: Enforce local iOS build before branch commit and PR creation
+alwaysApply: true
+---
+
+# Commit To New Branch Flow
+
+When a user asks to commit changes to a new branch (or equivalent wording), run this sequence:
+
+1. Build the iOS app locally before any git write action:
+   `xcodebuild -project "VibeSwift.xcodeproj" -scheme "VibeSwift" -configuration Debug -destination "generic/platform=iOS Simulator" CODE_SIGNING_ALLOWED=NO build`
+2. If local build fails, stop immediately and report the failure. Do not commit, push, or open a PR.
+3. Create/switch to the requested branch (`git checkout -b <branch>` if it does not exist).
+4. Stage only relevant files, create the commit, then push with upstream (`git push -u origin HEAD`).
+5. Create the pull request with `gh pr create` and include:
+   - a short summary of user-impacting changes
+   - a test plan checklist
+6. Return the PR URL and clearly state local build status.
+
+Never skip the build gate unless the user explicitly asks to bypass it.

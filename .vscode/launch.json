@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:VibeSwift}/SwiftExecEngine",
+            "name": "Debug SwiftExecWrapperGen (SwiftExecEngine)",
+            "target": "SwiftExecWrapperGen",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug SwiftExecWrapperGen (SwiftExecEngine)"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:VibeSwift}/SwiftExecEngine",
+            "name": "Release SwiftExecWrapperGen (SwiftExecEngine)",
+            "target": "SwiftExecWrapperGen",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release SwiftExecWrapperGen (SwiftExecEngine)"
+        }
+    ]
+}
