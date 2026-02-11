@@ -12,6 +12,25 @@ public enum GeneratedSymbolTable {
     public static let boolInit = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.boolInit)
     public static let dateNow = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.dateNow)
     public static let textInit = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.textInit)
+    public static let buttonInit = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.buttonInit)
+    public static let vStackInit = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.vStackInit)
+    public static let hStackInit = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.hStackInit)
+    public static let spacerInit = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.spacerInit)
+    public static let imageInit = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.imageInit)
+    public static let textFieldInit = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.textFieldInit)
+    public static let toggleInit = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.toggleInit)
+    public static let paddingModifier = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.paddingModifier)
+    public static let fontModifier = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.fontModifier)
+    public static let foregroundStyleModifier = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.foregroundStyleModifier)
+    public static let frameModifier = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.frameModifier)
+    public static let backgroundModifier = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.backgroundModifier)
+    public static let onTapHook = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.onTapHook)
+    public static let onAppearHook = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.onAppearHook)
+    public static let onChangeHook = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.onChangeHook)
+    public static let stateInit = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.stateInit)
+    public static let stateGet = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.stateGet)
+    public static let stateSet = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.stateSet)
+    public static let stateBind = SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.stateBind)
 
     public static let opAdd = SymbolHasher.hash(namespace: .operator, name: "+")
     public static let opSubtract = SymbolHasher.hash(namespace: .operator, name: "-")
@@ -35,6 +54,25 @@ public enum GeneratedSymbolTable {
         boolInit,
         dateNow,
         textInit,
+        buttonInit,
+        vStackInit,
+        hStackInit,
+        spacerInit,
+        imageInit,
+        textFieldInit,
+        toggleInit,
+        paddingModifier,
+        fontModifier,
+        foregroundStyleModifier,
+        frameModifier,
+        backgroundModifier,
+        onTapHook,
+        onAppearHook,
+        onChangeHook,
+        stateInit,
+        stateGet,
+        stateSet,
+        stateBind,
         opAdd,
         opSubtract,
         opMultiply,

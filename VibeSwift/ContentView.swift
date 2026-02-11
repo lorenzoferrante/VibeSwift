@@ -11,6 +11,7 @@ import LanguageSupport
 
 private enum EditorMode: String, CaseIterable {
     case run = "Run"
+    case live = "Live Renderer"
     case build = "Build App"
 }
 
@@ -37,7 +38,7 @@ return upper
                     }
                 }
                 .pickerStyle(.segmented)
-                .frame(maxWidth: 260)
+                .frame(maxWidth: 340)
 
                 if selectedMode == .run {
                     Button {
@@ -48,6 +49,23 @@ return upper
                     }
                     .buttonStyle(.borderedProminent)
                     .disabled(viewModel.isRunning)
+                } else if selectedMode == .live {
+                    Button {
+                        messages = []
+                        viewModel.runLive(source: text)
+                    } label: {
+                        Label("Launch Live", systemImage: "bolt.fill")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(viewModel.isLiveRunning)
+
+                    Button {
+                        messages = []
+                        viewModel.recomputeLive(source: text)
+                    } label: {
+                        Label("Recompute", systemImage: "arrow.triangle.2.circlepath")
+                    }
+                    .buttonStyle(.bordered)
                 } else {
                     Button {
                         messages = []
@@ -58,6 +76,14 @@ return upper
                     .buttonStyle(.borderedProminent)
                     .disabled(viewModel.isBuilding)
                 }
+
+                Button {
+                    text = sampleSource(for: selectedMode)
+                    position = CodeEditor.Position()
+                } label: {
+                    Label("Load Sample", systemImage: "doc.text")
+                }
+                .buttonStyle(.bordered)
 
                 Toggle("SwiftUI Bridge", isOn: $viewModel.allowSwiftUIBridge)
                     .toggleStyle(.switch)
@@ -124,6 +150,69 @@ return upper
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
+            } else if selectedMode == .live {
+                GroupBox("Live Renderer Result") {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(viewModel.liveStatusText.isEmpty ? "Live renderer is idle." : viewModel.liveStatusText)
+                            .font(.system(.body, design: .monospaced))
+
+                        if let renderedView = viewModel.renderedView {
+                            Divider()
+                            Text("Rendered View")
+                                .font(.headline)
+                            renderedView
+                                .frame(maxWidth: .infinity, minHeight: 80, alignment: .leading)
+                        }
+
+                        if !viewModel.outputLines.isEmpty {
+                            Divider()
+                            Text("Console Output")
+                                .font(.headline)
+                            ForEach(Array(viewModel.outputLines.enumerated()), id: \.offset) { idx, line in
+                                Text("[\(idx)] \(line)")
+                                    .font(.system(.caption, design: .monospaced))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+
+                        if !viewModel.diagnosticLines.isEmpty {
+                            Divider()
+                            Text("Diagnostics")
+                                .font(.headline)
+                            ForEach(Array(viewModel.diagnosticLines.enumerated()), id: \.offset) { idx, line in
+                                Text("[\(idx)] \(line)")
+                                    .font(.system(.caption, design: .monospaced))
+                                    .foregroundStyle(.red)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+
+                        if !viewModel.liveStateText.isEmpty {
+                            Divider()
+                            Text("State (JSON)")
+                                .font(.headline)
+                            ScrollView {
+                                Text(viewModel.liveStateText)
+                                    .font(.system(.caption, design: .monospaced))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            .frame(minHeight: 80, maxHeight: 160)
+                        }
+
+                        if !viewModel.liveIRText.isEmpty {
+                            Divider()
+                            Text("ViewTree IR (JSON)")
+                                .font(.headline)
+                            ScrollView {
+                                Text(viewModel.liveIRText)
+                                    .font(.system(.caption, design: .monospaced))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            .frame(minHeight: 80, maxHeight: 180)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
             } else {
                 GroupBox("Build Result") {
                     VStack(alignment: .leading, spacing: 8) {
@@ -179,6 +268,60 @@ return upper
             }
         }
         .padding()
+    }
+
+    private func sampleSource(for mode: EditorMode) -> String {
+        switch mode {
+        case .run:
+            return """
+let name = "Vibe"
+let upper = name.uppercased()
+print("Hello " + upper)
+return upper
+"""
+        case .live:
+            return """
+func body() {
+    let state = State()
+    let title = state.get("title")
+    let nameBinding = state.bind("name")
+    let enabledBinding = state.bind("enabled")
+
+    var root = VStack(
+        12,
+        Text(title),
+        TextField("Name", nameBinding),
+        Toggle("Enabled", enabledBinding),
+        Button("Save", "saveTapped")
+    )
+    root = padding(root, 12)
+    root = font(root, "body")
+    root = background(root, "gray")
+    return root
+}
+
+func saveTapped() {
+    let state = State()
+    let currentName = state.get("name")
+    state.set("title", "Hello " + currentName)
+}
+"""
+        case .build:
+            return """
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        VStack(spacing: 12) {
+            Text("Hello from Build App mode")
+            Image(systemName: "sparkles")
+                .foregroundStyle(.blue)
+        }
+        .padding()
+    }
+}
+"""
+        }
     }
 }
 

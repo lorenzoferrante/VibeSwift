@@ -604,6 +604,44 @@ private final class FunctionCompiler {
             return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.boolInit)
         case "Text":
             return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.textInit)
+        case "Button":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.buttonInit)
+        case "VStack":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.vStackInit)
+        case "HStack":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.hStackInit)
+        case "Spacer":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.spacerInit)
+        case "Image":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.imageInit)
+        case "TextField":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.textFieldInit)
+        case "Toggle":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.toggleInit)
+        case "padding":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.paddingModifier)
+        case "font":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.fontModifier)
+        case "foregroundStyle":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.foregroundStyleModifier)
+        case "frame":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.frameModifier)
+        case "background":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.backgroundModifier)
+        case "onTap":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.onTapHook)
+        case "onAppear":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.onAppearHook)
+        case "onChange":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.onChangeHook)
+        case "State":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.stateInit)
+        case "stateGet":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.stateGet)
+        case "stateSet":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.stateSet)
+        case "stateBind":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.stateBind)
         default:
             return symbols.bridgeSymbolID(for: "dynamic.\(name)")
         }
@@ -617,6 +655,12 @@ private final class FunctionCompiler {
             return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.stringLowercased)
         case "contains":
             return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.stringContains)
+        case "get":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.stateGet)
+        case "set":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.stateSet)
+        case "bind", "bindBool", "bindString", "bindDouble":
+            return SymbolHasher.hash(namespace: .bridge, name: BuiltinSymbolName.stateBind)
         default:
             return symbols.bridgeSymbolID(for: "dynamic.method.\(name)")
         }

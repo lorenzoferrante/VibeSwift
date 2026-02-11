@@ -126,7 +126,11 @@ let package = Package(
         ),
         .testTarget(
             name: "SwiftExecIntegrationTests",
-            dependencies: ["SwiftExecHost"]
+            dependencies: [
+                "SwiftExecHost",
+                "SwiftExecBridgeRuntime",
+                "SwiftExecSemantic"
+            ]
         ),
         .testTarget(
             name: "SwiftExecBenchmarks",
