@@ -24,9 +24,15 @@ final class InterpreterDemoViewModel: ObservableObject {
 
     @Published var allowSwiftUIBridge: Bool = false
     @Published var renderedView: AnyView?
+    @Published var isLiveRunning: Bool = false
+    @Published var liveStatusText: String = ""
+    @Published var liveStateText: String = ""
+    @Published var liveIRText: String = ""
 
     private let engine = Engine()
     private let buildService = BuildAppService()
+    private var runPreviewStore: RuntimeStore?
+    private var liveRuntime: LiveScriptRuntime?
 
     func run(source: String) {
         isRunning = true
@@ -34,6 +40,11 @@ final class InterpreterDemoViewModel: ObservableObject {
         diagnosticLines = []
         resultText = ""
         renderedView = nil
+        liveStatusText = ""
+        liveStateText = ""
+        liveIRText = ""
+        liveRuntime = nil
+        runPreviewStore = nil
 
         let capabilities: CapabilitySet = allowSwiftUIBridge
             ? [.foundationBasic, .diagnostics, .swiftUIBasic]
@@ -55,7 +66,20 @@ final class InterpreterDemoViewModel: ObservableObject {
             outputLines = result.output
             resultText = result.value.description
             diagnosticLines = result.diagnostics.map(DiagnosticFormatter.render)
-            if case let .native(box) = result.value, let anyView = box.value as? AnyView {
+            if let tree = ViewTree.fromRuntimeValue(
+                result.value,
+                defaultCapabilities: capabilityNames(capabilities),
+                defaultIRVersion: 1
+            ) {
+                let previewStore = RuntimeStore(state: [:], ir: tree)
+                runPreviewStore = previewStore
+                renderedView = AnyView(
+                    LiveRenderedTreeView(
+                        store: previewStore,
+                        dispatch: { _ in }
+                    )
+                )
+            } else if case let .native(box) = result.value, let anyView = box.value as? AnyView {
                 renderedView = anyView
             } else {
                 renderedView = nil
@@ -65,6 +89,55 @@ final class InterpreterDemoViewModel: ObservableObject {
         }
 
         isRunning = false
+    }
+
+    func runLive(source: String) {
+        isLiveRunning = true
+        outputLines = []
+        diagnosticLines = []
+        resultText = ""
+        renderedView = nil
+
+        let capabilities: CapabilitySet = allowSwiftUIBridge
+            ? [.foundationBasic, .diagnostics, .swiftUIBasic]
+            : [.foundationBasic, .diagnostics]
+
+        let runtime = LiveScriptRuntime(
+            source: source,
+            capabilities: capabilities,
+            initialState: defaultLiveState()
+        )
+        runtime.start()
+        liveRuntime = runtime
+        runPreviewStore = nil
+
+        renderedView = AnyView(
+            LiveRenderedTreeView(
+                store: runtime.store,
+                dispatch: { [weak self] actionID in
+                    self?.dispatchLiveAction(actionID)
+                }
+            )
+        )
+        syncLiveOutput(from: runtime)
+        isLiveRunning = false
+    }
+
+    func recomputeLive(source: String) {
+        guard let runtime = liveRuntime else {
+            runLive(source: source)
+            return
+        }
+        runtime.updateSource(source, recompute: true)
+        syncLiveOutput(from: runtime)
+    }
+
+    func dispatchLiveAction(_ actionID: String) {
+        guard let runtime = liveRuntime else {
+            return
+        }
+        runtime.dispatch(actionID: actionID)
+        syncLiveOutput(from: runtime)
     }
 
     func build(source: String) {
@@ -116,5 +189,43 @@ final class InterpreterDemoViewModel: ObservableObject {
             return ""
         }
         return text
+    }
+
+    private func syncLiveOutput(from runtime: LiveScriptRuntime) {
+        outputLines = runtime.outputLines
+        diagnosticLines = runtime.diagnosticLines
+        resultText = runtime.resultText
+        liveStateText = runtime.stateSnapshotText()
+        liveIRText = runtime.irSnapshotText()
+        if let error = runtime.lastRuntimeError {
+            liveStatusText = "Live renderer error: \(error)"
+        } else {
+            liveStatusText = "Live renderer ready."
+        }
+    }
+
+    private func defaultLiveState() -> [String: IRValue] {
+        [
+            "title": .string("Live ViewTree Renderer"),
+            "name": .string("Vibe"),
+            "enabled": .bool(true)
+        ]
+    }
+
+    private func capabilityNames(_ capabilities: CapabilitySet) -> [String] {
+        var names: [String] = []
+        if capabilities.contains(.foundationBasic) {
+            names.append("foundationBasic")
+        }
+        if capabilities.contains(.dateFormatting) {
+            names.append("dateFormatting")
+        }
+        if capabilities.contains(.swiftUIBasic) {
+            names.append("swiftUIBasic")
+        }
+        if capabilities.contains(.diagnostics) {
+            names.append("diagnostics")
+        }
+        return names
     }
 }

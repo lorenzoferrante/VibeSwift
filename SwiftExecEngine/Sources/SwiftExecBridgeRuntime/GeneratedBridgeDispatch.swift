@@ -186,7 +186,7 @@ private extension GeneratedBridgeDispatch {
         }
         let text = args[0].stringValue ?? String(describing: args[0])
         let explicitID = args[safe: 1]?.stringValue
-        return makeNode(
+        return try makeNode(
             type: "Text",
             props: ["text": .string(text)],
             children: [],
@@ -202,7 +202,7 @@ private extension GeneratedBridgeDispatch {
         }
         let explicitID = args[safe: 2]?.stringValue
         let tap = makeEvent(event: "tap", actionID: actionID, path: nil)
-        return makeNode(
+        return try makeNode(
             type: "Button",
             props: ["title": .string(title)],
             children: [],
@@ -228,7 +228,7 @@ private extension GeneratedBridgeDispatch {
 
     static func makeSpacerNode(args: [RuntimeValue], symbolID: SymbolID) throws -> RuntimeValue {
         let explicitID = args[safe: 0]?.stringValue
-        return makeNode(type: "Spacer", props: [:], children: [], explicitID: explicitID)
+        return try makeNode(type: "Spacer", props: [:], children: [], explicitID: explicitID)
     }
 
     static func makeImageNode(args: [RuntimeValue], symbolID: SymbolID) throws -> RuntimeValue {
@@ -236,7 +236,7 @@ private extension GeneratedBridgeDispatch {
             throw RuntimeError(message: "Image expects a system/image name", symbolID: symbolID)
         }
         let explicitID = args[safe: 1]?.stringValue
-        return makeNode(
+        return try makeNode(
             type: "Image",
             props: ["name": .string(name)],
             children: [],
@@ -250,7 +250,7 @@ private extension GeneratedBridgeDispatch {
         }
         let binding = try normalizeBinding(args[1], symbolID: symbolID)
         let explicitID = args[safe: 2]?.stringValue
-        return makeNode(
+        return try makeNode(
             type: "TextField",
             props: [
                 "title": .string(title),
@@ -267,7 +267,7 @@ private extension GeneratedBridgeDispatch {
         }
         let binding = try normalizeBinding(args[1], symbolID: symbolID)
         let explicitID = args[safe: 2]?.stringValue
-        return makeNode(
+        return try makeNode(
             type: "Toggle",
             props: [
                 "title": .string(title),

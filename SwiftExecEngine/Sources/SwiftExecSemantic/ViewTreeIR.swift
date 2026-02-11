@@ -158,21 +158,21 @@ extension IRValue: Codable {
 }
 
 public extension IRValue {
-    var boolValue: Bool? {
+    public var boolValue: Bool? {
         if case let .bool(value) = self {
             return value
         }
         return nil
     }
 
-    var intValue: Int64? {
+    public var intValue: Int64? {
         if case let .int(value) = self {
             return value
         }
         return nil
     }
 
-    var doubleValue: Double? {
+    public var doubleValue: Double? {
         switch self {
         case let .double(value):
             return value
@@ -183,7 +183,7 @@ public extension IRValue {
         }
     }
 
-    var stringValue: String? {
+    public var stringValue: String? {
         switch self {
         case let .string(value):
             return value
@@ -194,7 +194,7 @@ public extension IRValue {
         }
     }
 
-    static func fromRuntimeValue(_ value: RuntimeValue) -> IRValue? {
+    public static func fromRuntimeValue(_ value: RuntimeValue) -> IRValue? {
         switch value {
         case .none:
             return .null
@@ -228,7 +228,7 @@ public extension IRValue {
         }
     }
 
-    var runtimeValue: RuntimeValue {
+    public var runtimeValue: RuntimeValue {
         switch self {
         case .null:
             return .none
@@ -257,7 +257,7 @@ public extension IRValue {
 }
 
 public extension ViewTree {
-    static func fromRuntimeValue(
+    public static func fromRuntimeValue(
         _ value: RuntimeValue,
         defaultCapabilities: [String] = [],
         defaultIRVersion: Int = 1
@@ -299,7 +299,7 @@ public extension ViewTree {
 }
 
 public extension ViewNode {
-    static func fromRuntimeValue(_ value: RuntimeValue) -> ViewNode? {
+    public static func fromRuntimeValue(_ value: RuntimeValue) -> ViewNode? {
         guard let object = value.dictionaryValue else {
             return nil
         }
