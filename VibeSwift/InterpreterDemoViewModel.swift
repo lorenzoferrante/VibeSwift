@@ -46,9 +46,7 @@ final class InterpreterDemoViewModel: ObservableObject {
         liveRuntime = nil
         runPreviewStore = nil
 
-        let capabilities: CapabilitySet = allowSwiftUIBridge
-            ? [.foundationBasic, .diagnostics, .swiftUIBasic]
-            : [.foundationBasic, .diagnostics]
+        let capabilities: CapabilitySet = [.foundationBasic, .diagnostics, .swiftUIBasic]
 
         let request = EngineRunRequest(
             source: source,
