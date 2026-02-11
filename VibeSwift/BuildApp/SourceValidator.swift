@@ -36,6 +36,9 @@ struct SourceValidator {
 
         diagnostics.append(contentsOf: invalidImportDiagnostics(in: request.source))
         diagnostics.append(contentsOf: appIdentityDiagnostics(appName: request.appName, bundleID: request.bundleIdentifier))
+        diagnostics.append(contentsOf: deploymentTargetDiagnostics(request.minimumIOSVersion))
+        diagnostics.append(contentsOf: developmentTeamDiagnostics(request.developmentTeam))
+        diagnostics.append(contentsOf: buildSettingOverrideDiagnostics(request.buildSettingsOverrides))
 
         let preview = engine.buildPreview(
             .init(
@@ -86,6 +89,47 @@ struct SourceValidator {
         let bundlePattern = #"^[A-Za-z0-9\-]+(\.[A-Za-z0-9\-]+)+$"#
         if bundleID.range(of: bundlePattern, options: .regularExpression) == nil {
             result.append("Bundle identifier must look like com.example.AppName.")
+        }
+        return result
+    }
+
+    private func deploymentTargetDiagnostics(_ deploymentTarget: String) -> [String] {
+        let trimmed = deploymentTarget.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            return ["Deployment target must not be empty."]
+        }
+        let pattern = #"^[0-9]+(\.[0-9]+){0,2}$"#
+        guard trimmed.range(of: pattern, options: .regularExpression) != nil else {
+            return ["Deployment target must look like 17.0 or 18.0.1."]
+        }
+        return []
+    }
+
+    private func developmentTeamDiagnostics(_ developmentTeam: String) -> [String] {
+        let trimmed = developmentTeam.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty, trimmed != "YOUR_TEAM_ID" else {
+            return []
+        }
+        let pattern = #"^[A-Z0-9]{10}$"#
+        guard trimmed.range(of: pattern, options: .regularExpression) != nil else {
+            return ["Team ID should be a 10-character uppercase identifier (or use YOUR_TEAM_ID placeholder)."]
+        }
+        return []
+    }
+
+    private func buildSettingOverrideDiagnostics(_ overrides: XcodeBuildSettingsOverrides) -> [String] {
+        var result: [String] = []
+        let groups: [(String, [String: String])] = [
+            ("base", overrides.base),
+            ("debug", overrides.debug),
+            ("release", overrides.release)
+        ]
+        for (scope, settings) in groups {
+            for key in settings.keys {
+                if key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    result.append("Build setting override key in \(scope) scope must not be empty.")
+                }
+            }
         }
         return result
     }

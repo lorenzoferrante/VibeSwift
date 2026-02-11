@@ -1,4 +1,5 @@
 import Foundation
+import SwiftExecHost
 import SwiftExecSecurity
 
 struct BuildAppRequest: Sendable {
@@ -6,6 +7,8 @@ struct BuildAppRequest: Sendable {
     let appName: String
     let bundleIdentifier: String
     let minimumIOSVersion: String
+    let developmentTeam: String
+    let buildSettingsOverrides: XcodeBuildSettingsOverrides
     let capabilities: CapabilitySet
     let includeSwiftUI: Bool
 
@@ -14,6 +17,8 @@ struct BuildAppRequest: Sendable {
         appName: String,
         bundleIdentifier: String,
         minimumIOSVersion: String = "17.0",
+        developmentTeam: String = "YOUR_TEAM_ID",
+        buildSettingsOverrides: XcodeBuildSettingsOverrides = .empty,
         capabilities: CapabilitySet = .default,
         includeSwiftUI: Bool = true
     ) {
@@ -21,6 +26,8 @@ struct BuildAppRequest: Sendable {
         self.appName = appName
         self.bundleIdentifier = bundleIdentifier
         self.minimumIOSVersion = minimumIOSVersion
+        self.developmentTeam = developmentTeam
+        self.buildSettingsOverrides = buildSettingsOverrides
         self.capabilities = capabilities
         self.includeSwiftUI = includeSwiftUI
     }

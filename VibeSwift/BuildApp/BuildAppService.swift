@@ -19,11 +19,14 @@ struct BuildAppService {
         let packageName = sanitizedTypeName(from: request.appName)
         let manifest = VibeAppManifest(
             version: "1.0",
-            formatVersion: 1,
+            formatVersion: 2,
             appName: request.appName,
             packageName: packageName,
             bundleIdentifier: request.bundleIdentifier,
             minimumIOSVersion: request.minimumIOSVersion,
+            developmentTeam: request.developmentTeam,
+            signingStyle: "Automatic",
+            buildSettingsOverrides: request.buildSettingsOverrides,
             capabilities: capabilityNames(request.capabilities),
             sourceHash: sha256(request.source),
             createdAt: Date()
@@ -51,6 +54,7 @@ struct BuildAppService {
         let summary = """
         Build export complete.
         Package: \(retainedURL.lastPathComponent)
+        Xcode project: \(packageName).xcodeproj
         Bytecode bytes: \(preview.bytecodeSize)
         Instructions: \(preview.instructionCount)
         Symbols used: \(preview.usedSymbols.count)
