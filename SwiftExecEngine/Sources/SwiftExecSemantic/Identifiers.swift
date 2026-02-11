@@ -41,6 +41,30 @@ public enum BuiltinSymbolName {
     public static let boolInit = "Swift.Bool.init"
     public static let dateNow = "Foundation.Date.now"
     public static let textInit = "SwiftUI.Text.init"
+
+    // SwiftLite UI DSL + runtime store hooks.
+    public static let buttonInit = "SwiftLite.UI.Button"
+    public static let vStackInit = "SwiftLite.UI.VStack"
+    public static let hStackInit = "SwiftLite.UI.HStack"
+    public static let spacerInit = "SwiftLite.UI.Spacer"
+    public static let imageInit = "SwiftLite.UI.Image"
+    public static let textFieldInit = "SwiftLite.UI.TextField"
+    public static let toggleInit = "SwiftLite.UI.Toggle"
+
+    public static let paddingModifier = "SwiftLite.UI.padding"
+    public static let fontModifier = "SwiftLite.UI.font"
+    public static let foregroundStyleModifier = "SwiftLite.UI.foregroundStyle"
+    public static let frameModifier = "SwiftLite.UI.frame"
+    public static let backgroundModifier = "SwiftLite.UI.background"
+
+    public static let onTapHook = "SwiftLite.UI.onTap"
+    public static let onAppearHook = "SwiftLite.UI.onAppear"
+    public static let onChangeHook = "SwiftLite.UI.onChange"
+
+    public static let stateInit = "SwiftLite.State.init"
+    public static let stateGet = "SwiftLite.State.get"
+    public static let stateSet = "SwiftLite.State.set"
+    public static let stateBind = "SwiftLite.State.bind"
 }
 
 public enum BuiltinOperatorName {
